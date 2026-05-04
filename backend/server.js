@@ -66,7 +66,7 @@ const authLimiter = rateLimit({
 app.use(globalLimiter);
 
 // ─── Routes ───────────────────────────────────────────────────────
-app.use("/api/auth",  authLimiter, authRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/rooms", authenticateJWT, roomRoutes);
 app.use("/api/users", authenticateJWT, userRoutes);
 
