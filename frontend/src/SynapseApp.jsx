@@ -5,7 +5,7 @@
 
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { deriveKey,encryptMessage, decryptMessage, encryptFile, keyFingerprint } from "./lib/crypto";
-import { getIceServers, fetchTurnCredentials } from "./lib/turnconfig";
+import { getIceServers, fetchTurnCredentials } from "./lib/turnConfig";
 
 // ─── Config ───────────────────────────────────────────────────────
 const API_BASE    = (typeof process !== "undefined" && process.env?.REACT_APP_API_URL)  || "http://localhost:4000/api";
@@ -313,7 +313,7 @@ const fmt = ts => {
 };
 
 // ═══════════════════════════════════════════════════════════════════
-//  PHASE 3: API CLIENT — all calls go through here
+//   API CLIENT — all calls go through here
 // ═══════════════════════════════════════════════════════════════════
 const tokenStore = {
   get:    ()     => ({ access: localStorage.getItem("ct_access"), refresh: localStorage.getItem("ct_refresh"), jti: localStorage.getItem("ct_jti") }),
@@ -378,7 +378,7 @@ const api = {
 };
 
 // ═══════════════════════════════════════════════════════════════════
-//  PHASE 4: WEB CRYPTO — AES-256-GCM
+//   WEB CRYPTO — AES-256-GCM
 // ═══════════════════════════════════════════════════════════════════
 const SALT_PALETTE = ["#00bcd4","#69f0ae","#ffab40","#ff5252","#e040fb","#40c4ff","#fff","#4a6580"];
 
@@ -429,8 +429,9 @@ function AuthScreen({ onAuth }) {
         <div className="hero-blob" style={{width:260,height:260,background:"rgba(0,188,212,.1)",top:"8%",left:"10%"}} />
         <div className="hero-blob" style={{width:180,height:180,background:"rgba(105,240,174,.08)",bottom:"10%",right:"5%"}} />
         <div className="hero-c fu">
-          <div className="hero-logo">connect</div>
-          <div className="hero-sub">Real-time collaboration platform</div>
+          <div className="hero-logo">SYNAPSE</div>
+          <div className="hero-sub">Instant signal between minds</div>
+          <div className="hero-sub">A real-time collaboration platform</div>
           <div className="feat-grid">
             {[["🎥","HD WebRTC Video"],["🖥️","Screen Sharing"],["🎨","Collaborative Board"],["📁","Encrypted Files"],["🔒","AES-256-GCM E2E"],["⚡","Redis Presence"]].map(([i,l]) => (
               <div key={l} className="feat-item"><span className="feat-icon">{i}</span>{l}</div>
@@ -443,7 +444,7 @@ function AuthScreen({ onAuth }) {
       <div className="auth-panel">
         <div className="auth-card">
           <div className="auth-h fu">{mode==="login"?"Sign in":"Create account"}</div>
-          <div className="auth-s fu1">{mode==="login"?"access your workspace":"join connectapp"}</div>
+          <div className="auth-s fu1">{mode==="login"?"access your workspace":"join synapse an instant signal between minds"}</div>
           {err && <div className="err fu">{err}</div>}
           {ok  && <div className="ok fu">{ok}</div>}
           {mode==="register" && (
@@ -465,7 +466,7 @@ function AuthScreen({ onAuth }) {
           <button className="btn fu3" onClick={e=>{addRipple(e);submit();}} disabled={loading}>
             {loading ? <span className="spinner" /> : (mode==="login"?"Sign In →":"Create Account →")}
           </button>
-          {mode==="login" && (<><div className="divider">or</div><div className="demo-box">🔑 demo@connect.app / demo</div></>)}
+          {mode==="login" && (<><div className="divider">or</div><div className="demo-box">🔑 demo@synapse.app / demo</div></>)}
           <div className="toggle">
             {mode==="login"?"No account? ":"Have an account? "}
             <button onClick={()=>{setMode(m=>m==="login"?"register":"login");setErr("");}}>
@@ -548,7 +549,7 @@ function Whiteboard() {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-//  FILE SHARE — Phase 4: AES-256-GCM encryption before "send"
+//  FILE SHARE —  AES-256-GCM encryption before "send"
 // ═══════════════════════════════════════════════════════════════════
 function FileShare({ encKey }) {
   const [files, setFiles] = useState([]);
